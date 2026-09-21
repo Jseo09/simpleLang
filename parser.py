@@ -5,15 +5,16 @@ from lexer import tokenize
 
 class Parser:
     def __init__(self, tokens):
-        self.tokens, self.pos = tokens, 0
+        self.tokens = tokens
+        self.index = 0
 
     def peek(self):
-        return self.tokens[self.pos]
+        return self.tokens[self.index]
 
     def take(self, *kinds):
         token = self.peek()
         if token.kind in kinds:
-            self.pos += 1
+            self.index += 1
             return token
         return None
 
