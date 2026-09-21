@@ -24,7 +24,7 @@ PATTERN = re.compile(
     r'(?P<INVALID>.)'
 )
 
-# Need more keywords? (and, or, not, break, continue, etc.)
+# Need more keywords? (not, break, continue, etc.)
 KEYWORDS = {'let','if','else','while','func','return','print','true','false'}
 
 # find matching regex, extract value, process, append to token, line by line
