@@ -134,7 +134,7 @@ class Parser:
         while self.peek().kind in operators:
             op = self.take(*operators).kind
             # build AST node for new found binary operation
-            expr = ('binary', op, expr, next_level())
+            expr = ('binary', op, expr, next_level())       # not prefix notation
         return expr
 
     # logic, comparison, arithmetic operators
@@ -171,7 +171,7 @@ class Parser:
             expr = ('call', expr, args)     # build AST node
         return expr
 
-    # return parsed value type, raise error if no match
+    # return parsed value type in a tuple, raise error if no match
     def primary(self):
         token = self.take('NUMBER', 'STRING', 'true', 'false')
         if token:
