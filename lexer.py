@@ -24,8 +24,8 @@ PATTERN = re.compile(
     r'(?P<INVALID>.)'
 )
 
-# Need more keywords? (not, break, continue, etc.)
-KEYWORDS = {'let','if','else','while','func','return','print','true','false'}
+# Need more keywords? (not, continue, etc.)
+KEYWORDS = {'let','if','else','while','func','return','print','true','false', 'stop'}
 
 # find matching regex, extract value, process, append to token, line by line
 def tokenize(source):

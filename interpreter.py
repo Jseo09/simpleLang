@@ -1,7 +1,7 @@
 """Step 3: walk the AST and execute the program according to SimpleLang semantics."""
 from errors import LangError
 from parser import parse
-from runtime import Environment, Function, ReturnValue
+from runtime import *
 
 class Interpreter:
     # initialize the interpreter
@@ -11,6 +11,7 @@ class Interpreter:
         self.env = self.global_env      # current scope (as in line 22)
         self.steps = 0                  # count how many operations
         self.depth = 0                  # check how deep the nested chain of function is
+        self.loop_depth = 0             # used for 'stop' keyword
 
     # guardrail against infinite loop, stops when there are more than 1,000 operations
     def tick(self):
@@ -51,13 +52,25 @@ class Interpreter:
             if branch is not None:      # run following statement if truthy
                 self.execute(branch)
         elif kind == 'while':
-            while self.eval(node[1]):       # node[1]: condition
-                self.tick()
-                self.execute(node[2])       # node[2]: statement
+            self.loop_depth += 1        # increase the depth of the loop
+            try:
+                try:
+                    while self.eval(node[1]):       # node[1]: condition
+                        self.tick()
+                        self.execute(node[2])   # node[2]: statement
+                except BreakException:
+                    pass
+            finally:
+                self.loop_depth -= 1            # decrement loop depth after break out of it
+                
         elif kind == 'return':
             if self.depth == 0:             # depth=0 : not inside any function call
                 raise LangError('return outside function')
             raise ReturnValue(self.eval(node[1]) if node[1] is not None else None)
+        elif kind == 'stop':
+            if self.loop_depth == 0:
+                raise LangError('stop can only be used inside a loop')
+            raise BreakException()
         else:
             raise LangError(f'Unknown statement: {kind}')
 

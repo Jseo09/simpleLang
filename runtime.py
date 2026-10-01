@@ -1,4 +1,5 @@
 """Runtime data structures: nested variable scopes, functions, and returns."""
+
 from errors import LangError
 
 class Environment:
@@ -35,6 +36,10 @@ class Environment:
 class ReturnValue(Exception):
     def __init__(self, value):
         self.value = value
+
+# break keyword to break out of a loop
+class BreakException(Exception):
+    pass
 
 # user-defined function
 class Function:

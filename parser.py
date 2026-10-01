@@ -99,6 +99,10 @@ class Parser:
             self.expect(';')
             return ('return', value)
 
+        if self.take('stop'):
+            self.expect(';')
+            return ('stop',)
+
         # why does only print requires ';' at the end?
         # print(value/expression);
         if self.take('print'):
