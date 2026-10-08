@@ -37,8 +37,11 @@ class ReturnValue(Exception):
     def __init__(self, value):
         self.value = value
 
-# break keyword to break out of a loop
-class BreakException(Exception):
+# stop keyword to break out of a loop
+class StopException(Exception):
+    pass
+
+class ProgressException(Exception):
     pass
 
 # user-defined function

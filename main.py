@@ -21,6 +21,18 @@ func factorial(n) {
   return n * factorial(n - 1);  
 }
 print(factorial(5));
+let i = 5;
+while (i>0) {
+    if (i == 3) {
+        i = i-1;
+        progress;
+    }
+    if (i == 1) {
+        stop;
+    }
+    print(i);
+    i = i-1;
+    }
 '''
 
 

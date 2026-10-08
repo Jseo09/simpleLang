@@ -103,6 +103,10 @@ class Parser:
             self.expect(';')
             return ('stop',)
 
+        if self.take('progress'):
+            self.expect(';')
+            return ('progress',)
+
         # why does only print requires ';' at the end?
         # print(value/expression);
         if self.take('print'):

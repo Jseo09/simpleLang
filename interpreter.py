@@ -57,8 +57,11 @@ class Interpreter:
                 try:
                     while self.eval(node[1]):       # node[1]: condition
                         self.tick()
-                        self.execute(node[2])   # node[2]: statement
-                except BreakException:
+                        try:
+                            self.execute(node[2])   # node[2]: statement
+                        except ProgressException:
+                            pass
+                except StopException:
                     pass
             finally:
                 self.loop_depth -= 1            # decrement loop depth after break out of it
@@ -70,10 +73,14 @@ class Interpreter:
         elif kind == 'stop':
             if self.loop_depth == 0:
                 raise LangError('stop can only be used inside a loop')
-            raise BreakException()
+            raise StopException()
+        elif kind == 'progress':
+            if self.loop_depth == 0:
+                raise LangError('progress can only be used inside a loop')
+            raise ProgressException()
         else:
             raise LangError(f'Unknown statement: {kind}')
-
+        
     def eval(self, node):
         self.tick()
         kind = node[0]      # first tag in ast node, reference from parser.py
