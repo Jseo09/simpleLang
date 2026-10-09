@@ -8,7 +8,7 @@ class Interpreter:
     def __init__(self):
         self.output = []
         self.global_env = Environment() # top level, parent = None
-        self.env = self.global_env      # current scope (as in line 22)
+        self.env = self.global_env      # current scope
         self.steps = 0                  # count how many operations
         self.depth = 0                  # check how deep the nested chain of function is
         self.loop_depth = 0             # used for 'stop' keyword
@@ -154,4 +154,6 @@ def run(source):
     ast = parse(source)             # parse source to ast
     interpreter = Interpreter()     # create an interpreter
     interpreter.execute(ast)        # execute ast
-    return {'ast': ast, 'output': '\n'.join(interpreter.output)}       # return ast, output of interpreter
+    return {'ast': ast,             # return ast, output of interpreter
+            'output': '\n'.join(interpreter.output),
+            'env':interpreter.global_env.values}        # return final global variables
