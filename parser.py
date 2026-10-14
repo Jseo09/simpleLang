@@ -67,7 +67,7 @@ class Parser:
             self.expect(')')
             return ('func', name, params, self.block())
 
-        # no indentation/block for statement?
+
         """
         if (condition)
             statement   # run when true
@@ -81,8 +81,7 @@ class Parser:
             yes = self.statement()
             no = self.statement() if self.take('else') else None
             return ('if', condition, yes, no)
-
-        # no indentation/block for statement?
+        
         """
         while (condition)
             statement
@@ -99,16 +98,16 @@ class Parser:
             self.expect(';')
             return ('return', value)
 
+        # stop; stop the loop
         if self.take('stop'):
             self.expect(';')
             return ('stop',)
 
+        # progress; skip one loop
         if self.take('progress'):
             self.expect(';')
             return ('progress',)
 
-        # why does only print requires ';' at the end?
-        # print(value/expression);
         if self.take('print'):
             self.expect('(')
             value = self.expression()

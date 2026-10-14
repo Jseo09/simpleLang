@@ -11,7 +11,7 @@ class Interpreter:
         self.env = self.global_env      # current scope
         self.steps = 0                  # count how many operations
         self.depth = 0                  # check how deep the nested chain of function is
-        self.loop_depth = 0             # used for 'stop' keyword
+        self.loop_depth = 0             # used for 'stop', 'progress' keyword
 
     # guardrail against infinite loop, stops when there are more than 1,000 operations
     def tick(self):

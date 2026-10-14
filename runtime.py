@@ -41,6 +41,7 @@ class ReturnValue(Exception):
 class StopException(Exception):
     pass
 
+# progress keyword to skip a loop
 class ProgressException(Exception):
     pass
 

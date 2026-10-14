@@ -15,7 +15,7 @@ from errors import LangError
 from interpreter import run
 
 EXAMPLE = r'''
-// SimpleLang sample: functions, conditions, and recursion
+// SimpleLang sample: functions, conditions, recursion and loop
 func factorial(n) {
   if (n <= 1) {
     return 1;
@@ -51,9 +51,9 @@ def show(value):
 
 def main():
     arg_parser = argparse.ArgumentParser(description='SimpleLang: Python-based interpreter')        # creates parser object
-    arg_parser.add_argument('file', nargs='?', help='path to a .sl source file')                    # optinal filename
-    arg_parser.add_argument('--ast', action='store_true', help='display the abstract syntax tree')  # optinal flag
-    arg_parser.add_argument('--tokens', action='store_true', help='display the token stream')       # optinal token
+    arg_parser.add_argument('file', nargs='?', help='path to a .sl source file')                    # optional filename
+    arg_parser.add_argument('--ast', action='store_true', help='display the abstract syntax tree')  # optional flag
+    arg_parser.add_argument('--tokens', action='store_true', help='display the token stream')       # optional token
     arg_parser.add_argument('--env', action='store_true', help='display global variables after execution')      #optional 
     args = arg_parser.parse_args()      # read user input
 
